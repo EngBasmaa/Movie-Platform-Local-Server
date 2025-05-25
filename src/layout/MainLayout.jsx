@@ -6,7 +6,8 @@ import {
   MoviesDashboardPage,
   NotFound,
   MovieDetails,
-  MovieForm
+  MovieForm,
+  Counter
 } from "../pages";
 import { SharedLayout } from "./SharedLayout";
 
@@ -20,6 +21,7 @@ function MainLayout() {
           <Route path="movies" element={<MoviesPage />} />
           <Route path="movies/:id" element={<MovieDetails />} />
           <Route path="movies/:id/edit" element={<MovieForm />} />
+          <Route path="counter" element={<Counter />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

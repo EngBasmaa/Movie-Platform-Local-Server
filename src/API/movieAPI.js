@@ -1,7 +1,6 @@
 import axios from "axios";
 
-// const baseUrl = "https://www.apirequest.in/movie/api";
-const baseUrl = "http://localhost:4001/movies";
+const baseUrl = "http://localhost:4005/movies";
 
 const getAllMovies = () => axios.get(baseUrl);
 

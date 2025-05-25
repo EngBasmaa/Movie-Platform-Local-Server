@@ -5,6 +5,7 @@ import { MoviesDashboardPage } from "./MoviesDashboardPage";
 import { NotFound } from "./NotFound";
 import { MovieDetails } from "./MovieDetails";
 import { MovieForm } from "./MovieForm";
+import { Counter } from "./counter";
 
 export {
   LandingHomePage,
@@ -12,5 +13,6 @@ export {
   MoviesPage,
   NotFound,
   MovieDetails,
-  MovieForm
+  MovieForm,
+  Counter
 };

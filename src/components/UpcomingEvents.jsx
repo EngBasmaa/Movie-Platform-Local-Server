@@ -15,29 +15,13 @@ export function UpcomingEvents() {
   const backgroundImage = theme === "dark" ? darkBgImage : lightBgImage;
   const titleColor = theme === "dark" ? "white" : "black";
   const imgSrc = theme === "dark" ? darkImg : lightImg;
-  return (
-    <Container className={`${styles.container}`}>
-      <Row
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-          backgroundColor: "var(--bg-color)", // Use theme background color
-          color: "var(--text-color)", // Use theme text color
-          width: "100%",
-          height: "100%"
-        }}
-        className="p-0 m-0"
-      >
+  return <Container className={`${styles.container}`}>
+      <Row style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundColor: "var(--bg-color)", color: "var(--text-color)", width: "100%", height: "100%" } // Use theme background color // Use theme text color
+        } className="p-0 m-0">
         <Col md={6}>
           <div className="content p-5">
             <div>
-              <img
-                src={filmRoll}
-                alt="Image"
-                width="30"
-                style={{ height: "auto", marginBottom: "1.5rem" }}
-              />
+              <img src={filmRoll} alt="img" width="30" style={{ height: "auto", marginBottom: "1.5rem" }} />
             </div>
             <h5 className={styles.heroSign2}>Upcoming Event</h5>
             <h2 className={styles.heroTitle2} style={{ color: titleColor }}>
@@ -56,17 +40,11 @@ export function UpcomingEvents() {
 
         <Col md={6} className="p-0 m-0 h-100">
           <div className="image h-100 w-100 p-0 m-0">
-            <img
-              src={imgSrc}
-              alt="Placeholder"
-              className="img-fluid"
-              style={{ height: "100%", width: "100%" }}
-            />
+            <img src={imgSrc} alt="Placeholder" className="img-fluid" style={{ height: "100%", width: "100%" }} />
           </div>
         </Col>
       </Row>
-    </Container>
-  );
+    </Container>;
 }
 
 export default UpcomingEvents;

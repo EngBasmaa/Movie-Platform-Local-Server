@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Form, Row, Col, Card } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { editMovie, addNewMovie, getMovieById } from "../API/movieAPI";
 
 export function MovieForm() {

@@ -1,53 +1,54 @@
-import React, { useEffect, useState } from "react";
-import { Table, Container, Row, Col, Card } from "react-bootstrap";
-import styles from "../css/moviesList.module.css";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { getAllMoviesAction } from "../ToolkitStore/movieSlice";
 import { MoviesHeader } from "../components/MoviesHeader";
-import { getAllMovies, deleteMovie } from "../API/movieAPI";
+import { Row, Col, Card, Container } from "react-bootstrap";
+import styles from "../css/movies.module.css";
+import Table from "react-bootstrap/Table";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
+import { Link } from "react-router-dom";
 
 export function MoviesDashboardPage() {
+  const { movies = [], isLoading = false, errors = null } = useSelector(
+    store => store.movieSlice || {}
+  );
 
-const [isLoading, setIsLoading] = useState(true);
-const [errors, setErrors] = useState(null);
-
-  const [movies, setMovies] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
-    getAllMovies().then(res =>setMovies(res.data)).catch(err => setErrors(err)).finally(() => setIsLoading(false));
-
+    dispatch(getAllMoviesAction());
   }, []);
 
-
-
-
-const deleteHandler = (id) => {
-  setIsLoading(true);
-  deleteMovie(id)
-    .then(() => {
-      setMovies(prevMovies => prevMovies.filter(movie => movie.id !== id));
-    })
-    .catch(err => setErrors(err))
-    .finally(() => setIsLoading(false));
-};
+  const deleteHandler = id => {
+    console.log(id);
+    // dispatch action deleteMovie
+    // setIsLoading(true);
+    // deleteMovie(id)
+    //   .then(() => {
+    //     setMovies(prevMovies => prevMovies.filter(movie => movie.id !== id));
+    //   })
+    //   .catch(err => setErrors(err))
+    //   .finally(() => setIsLoading(false));
+  };
 
   return (
-    <>
     <Container className="my-5  mx-auto">
+      test
       <Row className="w-100 my-5 m-auto my-5">
         <Col>
           <Card className="shadow-lg my-5 p-4 m-auto">
-            <h3 className="text-center my-5 mb-4 text-dark fw-bold">Movie List</h3>
- 
+            <h3 className="text-center my-5 mb-4 text-dark fw-bold">
+              Movie List
+            </h3>
+
             <Container className="mb-5 p-5 mx-auto">
-      <MoviesHeader />
-            </Container>   
+              <MoviesHeader />
+            </Container>
 
             {isLoading && <Loading />}
-      {errors && <Error />}
-            
+            {errors && <Error />}
+
             {!isLoading && !errors && movies.length > 0
               ? <Table
                   striped
@@ -118,6 +119,5 @@ const deleteHandler = (id) => {
         </Col>
       </Row>
     </Container>
-    </>
   );
 }

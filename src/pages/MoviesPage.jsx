@@ -24,12 +24,16 @@ export function MoviesPage() {
     setSearchQuery(e.target.value);
   };
 
+
+  const filterOutDeletedMovie = (deletedId) => {
+    return (prevMovies) => prevMovies.filter((movie) => movie.id !== deletedId);
+  };
   // Handle movie deletion
   const handleDeleteMovie = (id) => {
     deleteMovie(id)
       .then(() => {
         // Update local state to remove the deleted movie
-        setLocalMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
+        setLocalMovies(filterOutDeletedMovie(id));
       })
       .catch((err) => console.log(err));
   };
