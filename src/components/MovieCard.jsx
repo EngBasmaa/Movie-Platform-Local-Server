@@ -7,18 +7,17 @@ import {
   CardImage,
   CardBody,
   Title,
-  InfoText
+  InfoText,
 } from "../styled-components/MovieCardStyles";
-import { DeleteButton } from "../styled-components/MovieCardStyles";
-import { Link } from "react-router-dom";
 
 export function MovieCard({
   title,
   image,
   imdbRating,
-  onViewDetails,
-  onDelete,
-  id
+  // onViewDetails,
+  // onDelete,
+  // id,
+  children,
 }) {
   return (
     <StyledCard>
@@ -29,13 +28,11 @@ export function MovieCard({
 
       {/* Card Body with Title and Buttons */}
       <CardBody>
-        <Title>
-          {title}
-        </Title>
-        <InfoText>
-          {imdbRating}
-        </InfoText>
+        <Title>{title}</Title>
+        <InfoText>{imdbRating}</InfoText>
 
+        {children}
+        {/*
         <div className="mt-3">
           <Button
             variant="light"
@@ -48,7 +45,7 @@ export function MovieCard({
           </Button>
 
           <DeleteButton onClick={onDelete}>Delete Movie</DeleteButton>
-        </div>
+        </div> */}
       </CardBody>
     </StyledCard>
   );

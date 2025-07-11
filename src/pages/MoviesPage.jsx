@@ -5,7 +5,9 @@ import { getAllMovies, deleteMovie } from "../API/movieAPI";
 import { Loading } from "../components/Loading";
 import { Error } from "../components/Error";
 import { useFetch } from "../custom-hooks/UseFetch";
-import myImage from "../assets/imgs/background-event-home-1.png";
+import { DeleteButton } from "../styled-components/MovieCardStyles";
+import { Link } from "react-router-dom";
+import { Button } from "react-bootstrap";
 
 export function MoviesPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +17,7 @@ export function MoviesPage() {
   // This useEffect is triggered whenever 'movies' is updated
   useEffect(() => {
     if (movies) {
-      setLocalMovies(movies); // Update the local state with fetched data
+      setLocalMovies(movies);
     }
   }, [movies]);
 
@@ -23,7 +25,6 @@ export function MoviesPage() {
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
-
 
   const filterOutDeletedMovie = (deletedId) => {
     return (prevMovies) => prevMovies.filter((movie) => movie.id !== deletedId);
@@ -46,7 +47,6 @@ export function MoviesPage() {
   return (
     <>
       {error && <Error />} {/* Show error if fetching fails */}
-
       <Container
         className="my-5 w-75 p-5"
         style={{
@@ -66,29 +66,38 @@ export function MoviesPage() {
           />
         </Form.Group>
 
-        {isLoading && <Loading />} 
+        {isLoading && <Loading />}
 
         {!isLoading && !error && (
           <Row className="mt-5">
-            
             {filteredMovies.length > 0 ? (
               filteredMovies.map((movie) => (
                 <Col key={movie.id} md={4} className="mb-4">
                   <MovieCard
                     title={movie.name}
                     genre={
-                      Array.isArray(movie.category)
-                        ? movie.category.join(", ")
-                        : movie.category
+                      Array.isArray(movie.category) ? movie.category.join(", ") : movie.category
                     }
                     duration={movie.duration}
                     premier={movie.premier}
                     rating={movie.rating}
                     director={movie.director}
-                    image={myImage}
+                    image="/public/background-event-home-1.png"
                     id={movie.id}
-                    onDelete={() => handleDeleteMovie(movie.id)}
-                  />
+                    // onDelete={() => handleDeleteMovie(movie.id)}
+                  >
+                    <div className="mt-3">
+                      <Link to={`/movies/${movie.id}`}>
+                        <Button variant="light" className="fw-bold w-100 mb-2">
+                          <i className="fs-4 mx-1 text-warning bi bi-eye-fill" />
+                        </Button>
+                      </Link>
+
+                      <DeleteButton onClick={() => handleDeleteMovie(movie.id)}>
+                        Delete Movie
+                      </DeleteButton>
+                    </div>
+                  </MovieCard>
                 </Col>
               ))
             ) : (

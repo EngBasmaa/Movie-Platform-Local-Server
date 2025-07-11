@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllMoviesAction } from "../ToolkitStore/movieSlice";
+import { getAllMoviesAction, deleteMovieAction } from "../ToolkitStore/movieSlice";
 import { MoviesHeader } from "../components/MoviesHeader";
 import { Row, Col, Card, Container } from "react-bootstrap";
 import styles from "../css/movies.module.css";
@@ -18,23 +18,15 @@ export function MoviesDashboardPage() {
 
   useEffect(() => {
     dispatch(getAllMoviesAction());
-  }, []);
+  }, [dispatch]);
 
   const deleteHandler = id => {
-    console.log(id);
-    // dispatch action deleteMovie
-    // setIsLoading(true);
-    // deleteMovie(id)
-    //   .then(() => {
-    //     setMovies(prevMovies => prevMovies.filter(movie => movie.id !== id));
-    //   })
-    //   .catch(err => setErrors(err))
-    //   .finally(() => setIsLoading(false));
+    dispatch(deleteMovieAction(id));
   };
 
   return (
     <Container className="my-5  mx-auto">
-      test
+
       <Row className="w-100 my-5 m-auto my-5">
         <Col>
           <Card className="shadow-lg my-5 p-4 m-auto">

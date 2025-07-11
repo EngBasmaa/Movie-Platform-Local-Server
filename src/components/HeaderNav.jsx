@@ -65,13 +65,7 @@ export function HeaderNav() {
             >
               Counter({count})
             </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                isActive ? "text-danger nav-link" : "nav-link"}
-              to="/test"
-            >
-              Test-Toolkit
-            </NavLink>
+
           </Nav>
         </Navbar.Collapse>
         <ThemeToggleButton />

@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getAllMovies, getMovieById } from "../API/movieAPI";
+import { getAllMovies, getMovieById, deleteMovie } from "../API/movieAPI";
 
 const initialState = {
   movies: [],
+  selectedMovie: null,
   errors: null,
   isLoading: false
 };
@@ -39,6 +40,18 @@ export const getMovieByIdAction = createAsyncThunk(
   }
 );
 
+export const deleteMovieAction = createAsyncThunk(
+  "movie/deleteMovie",
+  async (id, { rejectWithValue }) => {
+    try {
+      await deleteMovie(id);
+      return id;
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
+
 const movieSlice = createSlice({
   name: "movie",
   initialState,
@@ -66,10 +79,22 @@ const movieSlice = createSlice({
     });
     builder.addCase(getMovieByIdAction.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.movies = action.payload;
+      state.selectedMovie = action.payload;
       console.log(action);
     });
     builder.addCase(getMovieByIdAction.rejected, (state, action) => {
+      state.isLoading = false;
+      state.errors = action.payload.name;
+    });
+    // Handle deleteMovieAction
+    builder.addCase(deleteMovieAction.pending, state => {
+      state.isLoading = true;
+    });
+    builder.addCase(deleteMovieAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.movies = state.movies.filter(movie => movie.id !== action.payload);
+    });
+    builder.addCase(deleteMovieAction.rejected, (state, action) => {
       state.isLoading = false;
       state.errors = action.payload.name;
     });
